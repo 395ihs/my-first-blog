@@ -120,18 +120,18 @@ def set_data(request):
     return HttpResponse("입력성공!")
 
 def post_list(request):
-    now = datetime.now()
-    posts = Log.objects.order_by('created_date')
+    posts = Log.objects.all().order_by('created_date')
     
     #현 시각으로 부터 1분 사이의 각 센서의 평균값을 구함.
-    rpost = Log.objects.filter(created_date__range=(now, now - timedelta(minutes=1)))
+    rpost = Log.objects.filter(created_date__gte=( timezone.datetime.now() - timedelta(minutes=1) ) )
     rpost_size = len(rpost)
-    if rpost_size == 0:
+    print('rpost:',len(rpost))
+    if (rpost_size == 0):
         rpost_size = 1
     temperature = sum([post.temperature for post in rpost]) / rpost_size
-    humidity = sum(post.humidity for post in rpost) / rpost_size
-    dust = sum(post.dust for post in rpost) / rpost_size
-    gas = sum(post.gas for post in rpost) / rpost_size
+    humidity = sum([post.humidity for post in rpost]) / rpost_size
+    dust = sum([post.dust for post in rpost]) / rpost_size
+    gas = sum([post.gas for post in rpost]) / rpost_size
 
     #상태 평가하기
     total_status, status_info = get_status(temperature, humidity, dust, gas)

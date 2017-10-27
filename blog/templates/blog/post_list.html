@@ -22,7 +22,7 @@
               <th>먼지 농도(mg/m3)</th>
               <th>이산화탄소 농도(CO2 ppm)</th>
             </tr>
-            {% for r in post %}
+            {% for post in posts %}
             <tr>
                 <th> {{ post.created_date }}</th>
               <th> {{ post.device }}</th>
