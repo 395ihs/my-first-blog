@@ -1,23 +1,37 @@
 <html>
     <head>
-        <title>Django Girls blog</title>
+        <title>공기질 측정</title>
     </head>
     <body>
-        <div>
-            <h1><a href="">Django Girls Blog</a></h1>
-        </div>
-        {{ posts }}
-        
-        <div>
-            <p>published: 14.06.2014, 12:14</p>
-            <h2><a href="">My first post</a></h2>
-            <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
-        </div>
-
-        <div>
-            <p>published: 14.06.2014, 12:14</p>
-            <h2><a href="">My second post</a></h2>
-            <p>Aenean eu leo quam. Pellentesque ornare sem lacinia quam venenatis vestibulum. Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut f.</p>
-        </div>
+        <h1>공기질 측정</h1>
+        <h2>공기질 종합상태</h2>
+        <p>상태: {{total_status}}</p>
+        <p>설명: {{status_info}}</p>
+        <h2>공기질 상태</h2>
+        <p>온도: {{temperature}}</p>
+        <p>습도: {{humidity}}</p>
+        <p>먼지 농도(mg/m3): {{dust}}</p>
+        <p>이산화탄소 농도(CO2 ppm): {{gas}}</p>
+        <h2>공기질 측정 로그</h2>
+        <table border="1">
+            <tr>
+              <th>시각</th>
+              <th>측정기(장치 고유 아이디)</th>
+              <th>온도</th>
+              <th>습도</th>
+              <th>먼지 농도(mg/m3)</th>
+              <th>이산화탄소 농도(CO2 ppm)</th>
+            </tr>
+            {% for r in post %}
+            <tr>
+                <th> {{ post.created_date }}</th>
+              <th> {{ post.device }}</th>
+              <th> {{ post.temperature }}</th>
+              <th> {{ post.humidity }}</th>
+              <th> {{ post.dust }}</th>
+              <th> {{ post.gas }}</th>
+            </tr> 
+            {% endfor %}
+        </table>
     </body>
 </html>
